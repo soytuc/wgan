@@ -34,13 +34,18 @@ Finally, install NVIDIA Toolkit Container:
     distribution=ubuntu22.04;curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg       && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list |             sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |             sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list;sudo apt-get update;sudo apt-get install -y nvidia-container-toolkit;sudo nvidia-ctk runtime configure --runtime=docker;sudo systemctl restart docker
 
 #### Create the docker container
-Clone the repository from here
+Download the repository from here:
 
-    git clone -b master https://joro3001@bitbucket.org/joro3001/imagewgangpplanning.git
+    https://anonymous.4open.science/r/wgan-A650/README.md
 
-In the same folder where repository was cloned run:
+Press the "Download repository" button on the right corner of the web page.
 
-    cd imagewgangpplanning/dockerfile/;imageName=imagewgangpplanning;sudo docker build -t $imageName .;
+Once downloaded, extract the file "wgan-A650.zip" to a folder with the name wgan-A650.
+
+In the same folder where repository was extracted run:
+
+    cd dockerfile/;imageName=imagewgangpplanning;sudo docker build -t $imageName .;
+
 If the docker image is succesfully built, you can proceed to create a container by running :
 
     sudo docker run --gpus all --net=host --privileged --env="DISPLAY=$DISPLAY" --env="QT_X11_NO_MITSHM=1" --env="NVIDIA_VISIBLE_DEVICES=all" --env="NVIDIA_DRIVER_CAPABILITIES=graphics,utility,compute" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" -device=/dev/dri:/dev/dri --name imgwgangpcontainer  -it imagewgangpplanning bash
